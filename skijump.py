@@ -35,3 +35,5 @@ ramp = extrusion(frame=f,pos=semicircle,
 jumpSupport = box(pos=(-46,7,0),size=(8,25,20),material = materials.wood)
 f.pos = (-20,20,10)
 f.rotate(angle=-pi * 1.5, origin=f.pos)
+
+key = scene.kb.getkey() # wait for and get keyboard info
