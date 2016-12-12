@@ -5,11 +5,11 @@
 #
 # Usage: Ski jump simulation
 #
-# Description: This program is resoponsible for running a simulation of  a snow sports enthusiast traveling down an ramp and launching into the air.
+# Description: This program is responsible for running a simulation of a snow sports enthusiast traveling down a ramp and launching into the air.
 # 
 #
 #
-# Special Instructions: When the program is run, in order to run a particular simulation simply
+# Special Instructions: When the program is ran, in order to run a particular simulation simply
 # select a number between one and five. 1 being the slowest initial velocity for the skier
 # and 5 being the fastest initial velocity for the skier.
 #
@@ -36,7 +36,7 @@ from visual import *
 #----------------------------------------------------------------------------
 
 #initilize scene
-scene = display(title='Projectile Motion', x=0, y=0,
+scene = display(title='Ski Jump Simulation', x=0, y=0,
                 width=2000, height=2000, center=(0,2,0),
                 autoscale=True, background=(0,1,1))
 
