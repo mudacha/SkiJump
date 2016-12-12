@@ -160,6 +160,6 @@ while(true):
             dude.pos = dude.pos + dude.velocity*timeStep
 
     if key == '6':
-        intro = text(text='Thanks for Ski Jump Simulator! ',
+        intro = text(text='Thanks for using Ski Jump Simulator! ',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
 
