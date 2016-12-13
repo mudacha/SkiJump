@@ -91,75 +91,48 @@ f.rotate(angle=-pi * 1.5, origin=f.pos)
 intro = text(text='Select A Number Between 1-5',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
 
+def airTime():
+     while dude.pos.y > (ground.pos.y + 6):
+            rate(5000)
+
+            airDrag = drag  * dude.velocity.x
+            fD = vector(airDrag,0,0)
+
+            dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
+            dude.pos = dude.pos + dude.velocity*timeStep
+
+
 
 # main program loop
 while(true):
     key = scene.kb.getkey() # wait for and get keyboard info
-    
-    if key == '1':
-        intro.visible = False
-        dude.visible = True
-        dude.pos=(-2,6,0)
+    intro.visible = False
+    dude.visible = True
+    dude.pos=(-2,6,0)
+        
+    if key == '1':       
         dude.velocity = vector(12.0,12.0,0.0)
         flag = 'true'
-        while dude.pos.y > (ground.pos.y + 6):
-            rate(5000)
-            airDrag = drag  * dude.velocity.x
-            fD = vector(airDrag,0,0)
-            dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
-            dude.pos = dude.pos + dude.velocity*timeStep
+        airTime()
             
     if key == '2':
-        intro.visible = False
-        dude.visible = True
-        dude.pos=(-2,6,0)
         dude.velocity = vector(16.0,16.0,0.0)
-        while dude.pos.y > (ground.pos.y + 6):
-            rate(5000)
-
-            airDrag = drag  * dude.velocity.x
-            fD = vector(airDrag,0,0)
-
-            dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
-            dude.pos = dude.pos + dude.velocity*timeStep
+        airTime()
+        
     if key == '3':
-        intro.visible = False
-        dude.visible = True
-        dude.pos=(-2,6,0)
         dude.velocity = vector(18.0,18.0,0.0)
-        while dude.pos.y > (ground.pos.y + 6):
-            rate(5000)
-            airDrag = drag  * dude.velocity.x
-            fD = vector(airDrag,0,0)
-
-            dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
-            dude.pos = dude.pos + dude.velocity*timeStep
+        airTime()
 
     if key == '4':
-        intro.visible = False
-        dude.visible = True
-        dude.pos=(-2,6,0)
         dude.velocity = vector(22.0,22.0,0.0)
-        while dude.pos.y > (ground.pos.y + 6):
-            rate(5000)
-            airDrag = drag  * dude.velocity.x
-            fD = vector(airDrag,0,0)
-            dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
-            dude.pos = dude.pos + dude.velocity*timeStep
+        airTime()
 
     if key == '5':
-        intro.visible = False
-        dude.visible = True
-        dude.pos=(-2,6,0)
         dude.velocity = vector(25.0,25.0,0.0)
-        while dude.pos.y > (ground.pos.y + 6):
-            rate(5000)
-            airDrag = drag  * dude.velocity.x
-            fD = vector(airDrag,0,0)
-            dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
-            dude.pos = dude.pos + dude.velocity*timeStep
+        airTime()
 
     if key == '6':
         intro = text(text='Thanks for using Ski Jump Simulator! ',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
+
 
