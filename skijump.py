@@ -66,6 +66,7 @@ ground = box(pos=(0.0,-8.0,0.0),size=(200.0,8,75),material = materials.rough, co
 #define tree frame objects
 
 dude = box(size=(2.5,2.5,2.5),color=color.blue)
+dude.mass = 90.0
 dude.visible=False
 # define time step
 timeStep = 0.0004
@@ -98,10 +99,17 @@ def airTime():
 
             airDrag = drag  * dude.velocity.x
             fD = vector(airDrag,0,0)
-
             dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
             dude.pos = dude.pos + dude.velocity*timeStep
 
+            ## TODO calculate the impact force by taking the derivitie of the velocity to get the accleration then times that by the mass
+            ## if dude.pos = stop condition -.1 so he is at ground.pos +5.99
+            ## forcetext = text(text='calculation' + N,  align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
+            
+
+#Ramp function: This function needs to figure out the skiers posistion on the ramp as well as final velocity on the ramp
+# that gets passed into the airtime function.
+def onRamp():
 
 
 # main program loop
@@ -111,7 +119,8 @@ while(true):
     dude.visible = True
     dude.pos=(-2,6,0)
         
-    if key == '1':   
+    if key == '1':
+        #hide calculation text
         dude.velocity = vector(12.0,12.0,0.0)
         airTime()
             
