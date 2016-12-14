@@ -76,17 +76,18 @@ drag = -.00006
 
 #define constant for gravity
 acclerationDueToGravity = vector(0,-9.8,0)
-f = frame()
+f = frame(color=color.green)
 #slope object stuff
 semicircle = paths.arc(radius=23,angle1=pi, angle2 = pi * 1.75)
-circ = shapes.rectangle(pos=(0,-10), width=5, height=15)
+rect = shapes.rectangle(pos=(0,-10), width=5, height=15)
 ramp = extrusion(frame=f,pos=semicircle, 
-          shape=circ, 
+          shape=rect, 
           color=color.white)
-# support for the jump
-jumpSupport = box(pos=(-46,7,0),size=(8,25,20),material = materials.wood)
+
 f.pos = (-20,20,10)
 f.rotate(angle=-pi * 1.5, origin=f.pos)
+# support for the jump
+jumpSupport = box(pos=(-46,7,0),size=(8,25,20),material = materials.wood)
 
 intro = text(text='Select A Number Between 1-5',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
@@ -110,9 +111,8 @@ while(true):
     dude.visible = True
     dude.pos=(-2,6,0)
         
-    if key == '1':       
+    if key == '1':   
         dude.velocity = vector(12.0,12.0,0.0)
-        flag = 'true'
         airTime()
             
     if key == '2':
