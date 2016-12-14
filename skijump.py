@@ -108,11 +108,11 @@ def airTime():
             ## if dude.pos = stop condition -.1 so he is at ground.pos +5.99
             ## forcetext = text(text='calculation' + N,  align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
 
-    #impactF = (0.5 * dude.mass) * dude.velocity**2
-    impactF = 2 * dude.mass * dude.velocity * timeStep
-    #impactF = impactF/10
-    ForceText = text(text='Impact Force = ' + str(impactF.y) + 'N', align='center', depth=-1.9, color=color.green, height=10, pos=(0,50,0))
-    print impactF.y
+    impactF = (0.5 * dude.mass) * dude.velocity.y**2
+    #impactF = 2 * dude.mass * dude.velocity * timeStep
+    impactF = impactF/10
+    ForceText = text(text='Impact Force = ' + str(impactF) + 'N', align='center', depth=-1.9, color=color.green, height=10, pos=(0,50,0))
+    print impactF
             
 
 #Ramp function: This function needs to figure out the skiers posistion on the ramp as well as final velocity on the ramp
