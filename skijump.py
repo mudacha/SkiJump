@@ -92,55 +92,66 @@ jumpSupport = box(pos=(-46,7,0),size=(8,25,20),material = materials.wood)
 
 intro = text(text='Select A Number Between 1-5',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
+ForceText = text(text=' ')
+impactF = vector(0,0,0)
 
 def airTime():
-     while dude.pos.y > (ground.pos.y + 6):
-            rate(5000)
+    while dude.pos.y > (ground.pos.y + 6):
+        rate(5000)
 
-            airDrag = drag  * dude.velocity.x
-            fD = vector(airDrag,0,0)
-            dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
-            dude.pos = dude.pos + dude.velocity*timeStep
+        airDrag = drag  * dude.velocity.x
+        fD = vector(airDrag,0,0)
+        dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
+        dude.pos = dude.pos + dude.velocity*timeStep
 
             ## TODO calculate the impact force by taking the derivitie of the velocity to get the accleration then times that by the mass
             ## if dude.pos = stop condition -.1 so he is at ground.pos +5.99
             ## forcetext = text(text='calculation' + N,  align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
+
+    #impactF = (1/2) * dude.mass * dude.velocity**2
+    ForceText = text(text='Impact Force =  N', align='center', depth=-1.9, color=color.green, height=10, pos=(0,50,0))
             
 
 #Ramp function: This function needs to figure out the skiers posistion on the ramp as well as final velocity on the ramp
 # that gets passed into the airtime function.
-def onRamp():
+#def onRamp():
 
 
 # main program loop
 while(true):
     key = scene.kb.getkey() # wait for and get keyboard info
     intro.visible = False
+    ForceText.visible = False
     dude.visible = True
     dude.pos=(-2,6,0)
         
     if key == '1':
-        #hide calculation text
+        ForceText.visible = False
         dude.velocity = vector(12.0,12.0,0.0)
         airTime()
             
     if key == '2':
+        ForceText.visible = False
         dude.velocity = vector(16.0,16.0,0.0)
         airTime()
         
     if key == '3':
+        ForceText.visible = False
         dude.velocity = vector(18.0,18.0,0.0)
         airTime()
 
     if key == '4':
+        ForceText.visible = False
         dude.velocity = vector(22.0,22.0,0.0)
         airTime()
 
     if key == '5':
+        ForceText.visible = False
         dude.velocity = vector(25.0,25.0,0.0)
         airTime()
 
     if key == '6':
+        ForceText.visible = False
         intro = text(text='Thanks for using Ski Jump Simulator! ',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
 
