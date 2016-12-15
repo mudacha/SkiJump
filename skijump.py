@@ -22,7 +22,7 @@
 # Author(s): Haydn Hunt , Cory Dunn , And Lori Pack
 # haydnhunt@mail.weber.edu
 # corydunn@mail.weber.edu
-# loripack@mail.weber.edu
+# loripack1@mail.weber.edu
 #
 # Modifications: Modification details can be found at https://github.com/mudacha/SkiJump 
 #
@@ -147,7 +147,7 @@ def airTime(offsetx,offsety):
     #Check to see if the impact force is great enough to cause serious injury.
     #if the force is greater then 3000 then change the skier dudes color to red... he is bleading duh ;)
     #if the force is greater then 3000 then also change the text to red as well.
-    if impactF > 3000:
+    if impactF > 3300:
         dude.color=color.red
         textColor = color.red
     impactF = format(impactF, '.2f')
@@ -192,7 +192,7 @@ while(true):
     if key == '3':
         #reset the dudes color
         dude.color=color.blue
-        dude.velocity = vector(18.0,18.0,0.0)
+        dude.velocity = vector(20.0,20.0,0.0)
         # pass in the offset for the result text to the airTime function
         airTime(75,55)
         
@@ -201,7 +201,7 @@ while(true):
         #reset the dudes color
         dude.color=color.blue
         #set the dudes initial velocity
-        dude.velocity = vector(22.0,22.0,0.0)
+        dude.velocity = vector(24.0,24.0,0.0)
         # pass in the offset for the result text to the airTime function
         airTime(75,65)
 
@@ -209,12 +209,11 @@ while(true):
     if key == '5':
         #reset the dudes color
         dude.color=color.blue
-        dude.velocity = vector(25.0,25.0,0.0)
+        dude.velocity = vector(28.0,28.0,0.0)
         # pass in the offset for the result text to the airTime function
         airTime(75,75)
 
     if key == '6':
         intro = text(text='Thanks for using Ski Jump Simulator! ',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,-50,0))
-
 
