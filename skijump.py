@@ -138,7 +138,7 @@ def airTime(offsetx,offsety):
         dude.pos = dude.pos + dude.velocity*timeStep
 
     #set the text color to green
-    textColor = color.green'
+    textColor = color.green
     #calculation for the impact force
     impactF = (0.5 * dude.mass) * dude.velocity.y**2
     #scale the impact force down (This is nessary because our scene isnt quite to scale........)
