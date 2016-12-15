@@ -36,6 +36,7 @@ from visual import *
 #----------------------------------------------------------------------------
 
 #initilize scene
+#set scene width height and center it
 scene = display(title='Ski Jump Simulation', x=0, y=0,
                 width=2000, height=2000, center=(0,2,0),
                 autoscale=True, background=(0,1,1))
@@ -63,11 +64,15 @@ for each in locations:
         
 # This box will specify the ground will be used as the ground that our test subject will land on 
 ground = box(pos=(0.0,-8.0,0.0),size=(200.0,8,75),material = materials.rough, color=color.white)
-#define tree frame objects
 
+#define skier dudes size and color
 dude = box(size=(2.5,2.5,2.5),color=color.blue)
+#define the dudes mass as 90kg
 dude.mass = 90.0
+#set the dude to initially be invisible 
 dude.visible=False
+
+
 # define time step
 timeStep = 0.0004
 
@@ -77,42 +82,76 @@ drag = -.00006
 
 #define constant for gravity
 acclerationDueToGravity = vector(0,-9.8,0)
-f = frame(color=color.green)
+
+#define the the frame that will encapsulate the the jump
+f = frame()
+
 #slope object stuff
+#semicircle defines a path that our extrusion will follow. The path for this is based off an arc and has a defined radius and a starting angle pi to a ending angle which is pi * 1.75
 semicircle = paths.arc(radius=23,angle1=pi, angle2 = pi * 1.75)
+
+#rect defines the shape that will be extruded. This is exactly like the shape you can put on a playdough extrusion toy. 
 rect = shapes.rectangle(pos=(0,-10), width=5, height=15)
+
+#the ramp object is the extrusion that brings together the path and the shape in order to extrude the ramp shape we want.
+#there is a extra parameter called frame that allows us to tie this extrusion to an object. Other wise we could not rotate the extrusion.
 ramp = extrusion(frame=f,pos=semicircle, 
           shape=rect, 
           color=color.white)
 
+#set the posistion of the frame object
 f.pos = (-20,20,10)
+
+#rotate the frame object about the origin - pi * 1.5
 f.rotate(angle=-pi * 1.5, origin=f.pos)
-# support for the jump
+
+# support for the jump is a box.
 jumpSupport = box(pos=(-46,7,0),size=(8,25,20),material = materials.wood)
 
+
+#Define text that is displayed when the program starts. Text works like an extrussion as you define a position and height and then extrude by defining the depth parameter
 intro = text(text='Select A Number Between 1-5',
     align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
+
+#define initial force text variable.
 ForceText = text(text=' ')
+
+# define variable for impact force
 impactF = vector(0,0,0)
 
-def airTime():
+
+#function air time this function will be in charge of calculations related to the skiers posistion , velocity and impact force as well as some cosmetic features of the program
+# This function accepts
+def airTime(offsetx,offsety):
+    #do all of the calculations listed below until the skier is just above the ground.
     while dude.pos.y > (ground.pos.y + 6):
+        #set rate of the loop
         rate(5000)
 
+        #calculate the drag by multipling our drag constant by the dudes velocity in the x direction.
         airDrag = drag  * dude.velocity.x
+        #assign airdrag to a vector in the appropriate x posistion
         fD = vector(airDrag,0,0)
+        #calculate the new velocity by adding the current velocity to the drag force and accelration due to gravity then multiplying all of that by our timestep
         dude.velocity = dude.velocity + fD + acclerationDueToGravity * timeStep
+        #calculate the skiers posistion by adding the current posistion to the dude.velocity * the timestep
         dude.pos = dude.pos + dude.velocity*timeStep
 
-            ## TODO calculate the impact force by taking the derivitie of the velocity to get the accleration then times that by the mass
-            ## if dude.pos = stop condition -.1 so he is at ground.pos +5.99
-            ## forcetext = text(text='calculation' + N,  align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
-
+    #set the text color to green
+    textColor = color.green'
+    #calculation for the impact force
     impactF = (0.5 * dude.mass) * dude.velocity.y**2
-    #impactF = 2 * dude.mass * dude.velocity * timeStep
+    #scale the impact force down (This is nessary because our scene isnt quite to scale........)
     impactF = impactF/10
-    ForceText = text(text='Impact Force = ' + str(impactF) + 'N', align='center', depth=-1.9, color=color.green, height=10, pos=(0,50,0))
-    print impactF
+
+    #Check to see if the impact force is great enough to cause serious injury.
+    #if the force is greater then 3000 then change the skier dudes color to red... he is bleading duh ;)
+    #if the force is greater then 3000 then also change the text to red as well.
+    if impactF > 3000:
+        dude.color=color.red
+        textColor = color.red
+    impactF = format(impactF, '.2f')
+    ForceText = text(text='Impact Force = ' + str(impactF) + 'N', align='center', depth=-1.9, color=textColor, height=5, pos=(offsetx,offsety,0))
             
 
 #Ramp function: This function needs to figure out the skiers posistion on the ramp as well as final velocity on the ramp
@@ -122,40 +161,60 @@ def airTime():
 
 # main program loop
 while(true):
+    #setting the key variable to grab key info
     key = scene.kb.getkey() # wait for and get keyboard info
+    #set intro text to be invisible if the user selected a simulation use case
     intro.visible = False
-    ForceText.visible = False
+    #make the dude visible
     dude.visible = True
-    dude.pos=(-2,6,0)
-        
+    #reset the dudes starting position
+    dude.pos=(-7.7,6,0)
+
+    # if the key input is 1 then set the velocity to the slowest test case
     if key == '1':
-        ForceText.visible = False
+        #reset the dudes color
+        dude.color=color.blue
+        #set the dudes velocity
         dude.velocity = vector(12.0,12.0,0.0)
-        airTime()
-            
-    if key == '2':
-        ForceText.visible = False
-        dude.velocity = vector(16.0,16.0,0.0)
-        airTime()
+    # pass in the offset for the result text to the airTime function
+        airTime(75,35)
         
+    #if the key input 2 then set the initial velocity to a faster test case  
+    if key == '2':
+        #reset the dudes color
+        dude.color=color.blue
+        #set the dudes initial velocity
+        dude.velocity = vector(16.0,16.0,0.0)
+        # pass in the offset for the result text to the airTime function
+        airTime(75,45)
+        
+    #if the key input is 3 then set the initial velocity to a even faster test case
     if key == '3':
-        ForceText.visible = False
+        #reset the dudes color
+        dude.color=color.blue
         dude.velocity = vector(18.0,18.0,0.0)
-        airTime()
-
+        # pass in the offset for the result text to the airTime function
+        airTime(75,55)
+        
+    #if the key input is 4 then set the initial velocity to the second fastest test case
     if key == '4':
-        ForceText.visible = False
+        #reset the dudes color
+        dude.color=color.blue
+        #set the dudes initial velocity
         dude.velocity = vector(22.0,22.0,0.0)
-        airTime()
+        # pass in the offset for the result text to the airTime function
+        airTime(75,65)
 
+    #if the key input is 5 then set the initial velocity to the fastest test case
     if key == '5':
-        ForceText.visible = False
+        #reset the dudes color
+        dude.color=color.blue
         dude.velocity = vector(25.0,25.0,0.0)
-        airTime()
+        # pass in the offset for the result text to the airTime function
+        airTime(75,75)
 
     if key == '6':
-        ForceText.visible = False
         intro = text(text='Thanks for using Ski Jump Simulator! ',
-    align='center', depth=-1.9, color=color.green, height=10,pos=(0,50,0))
+    align='center', depth=-1.9, color=color.green, height=10,pos=(0,-50,0))
 
 
